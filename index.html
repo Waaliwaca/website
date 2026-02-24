@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Sweet 17th Dina!</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --pink-soft: #ffc0cb;
+            --pink-dark: #d63384;
+            --bg-color: #fff5f8;
+            --vintage-brown: #a36b77;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
+            color: #444;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(rgba(255,192,203,0.3), rgba(255,255,255,0.8));
+        }
+
+        h1 {
+            color: var(--pink-dark);
+            font-size: 2.5rem;
+            margin-bottom: 0;
+            text-shadow: 2px 2px white;
+        }
+
+        /* Music Card Style */
+        .music-card {
+            background: var(--vintage-brown);
+            padding: 20px;
+            border-radius: 20px;
+            display: inline-block;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            margin-top: 30px;
+            color: white;
+            width: 280px;
+            transition: transform 0.3s;
+        }
+
+        .music-card:hover {
+            transform: scale(1.02);
+        }
+
+        .music-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        .music-info h4 { margin: 5px 0; font-size: 1.3rem; letter-spacing: 1px; }
+        .music-info p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+
+        .controls {
+            margin-top: 15px;
+            font-size: 1.5rem;
+            letter-spacing: 10px;
+        }
+
+        /* Video Hidden */
+        .video-container { display: none; }
+
+        .footer-note {
+            margin-top: 20px;
+            font-style: italic;
+            color: var(--pink-dark);
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="animate__animated animate__fadeInDown">Happy 17th Birthday, Dina! ✨</h1>
+        
+        <div class="music-card animate__animated animate__fadeInUp">
+            <img src="dina.jpg" alt="Dina">
+            <div class="music-info">
+                <h4>Bersama Selamanya</h4>
+                <p>Nadhif Basalamah</p>
+            </div>
+            <div class="controls">
+                <span>⏮ ⏸ ⏭</span>
+            </div>
+        </div>
+
+        <p class="footer-note animate__animated animate__fadeIn animate__delay-1s">
+            "Satu hal yang pasti, kita bersama selamanya..."
+        </p>
+
+        <div class="video-container">
+            <iframe id="player" width="0" height="0" 
+                src="https://www.youtube.com/embed/nUv86H87_QY?autoplay=1&loop=1&playlist=nUv86H87_QY" 
+                frameborder="0" allow="autoplay">
+            </iframe>
+        </div>
+    </header>
+
+    <script>
+        // Memastikan lagu berbunyi setelah interaksi user (klik di mana saja)
+        window.addEventListener('click', function() {
+            var player = document.getElementById('player');
+            var currentSrc = player.src;
+            if(!currentSrc.includes("autoplay=1")) {
+                player.src += "&autoplay=1";
+            }
+        }, { once: true });
+    </script>
+
+</body>
+</html>
