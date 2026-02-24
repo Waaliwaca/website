@@ -16,11 +16,12 @@
         body, html {
             height: 100%;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: var(--bg-color);
             overflow: hidden;
         }
 
+        /* Overlay Tombol Awal */
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -41,6 +42,7 @@
             font-weight: bold;
             font-size: 1.1rem;
             box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4);
+            border: none;
         }
 
         header {
@@ -56,7 +58,6 @@
         h1 {
             color: var(--pink-dark);
             font-size: 2.2rem;
-            text-shadow: 2px 2px white;
             margin-bottom: 10px;
         }
 
@@ -94,10 +95,10 @@
 </head>
 <body>
 
-    <div id="overlay" onclick="startSurprise()">
-        <div class="play-btn animate__animated animate__pulse animate__infinite">
+    <div id="overlay" onclick="mulaiWeb()">
+        <button class="play-btn animate__animated animate__pulse animate__infinite">
             Klik untuk Kejutan Dina ✨
-        </div>
+        </button>
     </div>
 
     <header>
@@ -114,19 +115,22 @@
             </div>
         </div>
 
-        <div class="footer-note animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="footer-note animate__animated animate__fadeInUp">
             Dinaa happy birthday yaa 😁 <br>
             Semoga di lancarin segala urusannya semuaaa sehat sehat selalu ceriaa 
             <span class="emoji">😽</span>
         </div>
 
-        <div style="display:none;">
-            <div id="player"></div>
-        </div>
+        <div id="player" style="position: absolute; top: -1000px;"></div>
     </header>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        // Load YouTube IFrame API
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
         var player;
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('player', {
@@ -135,17 +139,29 @@
                 videoId: 'nUv86H87_QY',
                 playerVars: {
                     'autoplay': 0,
+                    'controls': 0,
                     'loop': 1,
                     'playlist': 'nUv86H87_QY',
-                    'start': 60 // Mulai dari detik ke-60 (Reff)
+                    'start': 65 // Mulai di detik ke-65 (Reff)
+                },
+                events: {
+                    'onReady': onPlayerReady
                 }
             });
         }
 
-        function startSurprise() {
+        function onPlayerReady(event) {
+            // Player sudah siap, tinggal nunggu klik
+        }
+
+        function mulaiWeb() {
+            // Hapus overlay
             document.getElementById('overlay').style.display = 'none';
-            if (player && player.playVideo) {
+            
+            // Putar Video
+            if (player) {
                 player.playVideo();
+                player.setVolume(100); // Pastikan volume maksimal
             }
         }
     </script>
