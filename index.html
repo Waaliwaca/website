@@ -23,7 +23,6 @@ body, html {
     overflow: hidden;
 }
 
-/* Overlay */
 #overlay {
     position: fixed;
     top: 0; left: 0;
@@ -33,7 +32,6 @@ body, html {
     justify-content: center;
     align-items: center;
     z-index: 999;
-    text-align: center;
 }
 
 .play-btn {
@@ -129,9 +127,6 @@ h1 {
             <h4>Bersama Selamanya</h4>
             <p>Nadhif Basalamah</p>
         </div>
-        <div style="margin-top:15px; font-size:1.5rem; letter-spacing:10px; opacity:0.8;">
-            ⏮ ⏸ ⏭
-        </div>
     </div>
 
     <div class="footer-note animate__animated animate__fadeInUp">
@@ -139,58 +134,22 @@ h1 {
         Semoga dilancarkan segala urusannya, sehat selalu dan ceria terus  
         <span class="emoji">😽</span>
     </div>
-
-    <!-- Hidden YouTube Player -->
-    <div id="player" style="position:absolute; top:-1000px;"></div>
 </header>
 
+<!-- AUDIO MP3 -->
+<audio id="bg-music" loop>
+    <source src="bersama-selamanya.mp3" type="audio/mpeg">
+</audio>
+
 <script>
-let player;
-let playerReady = false;
-
-// Load YouTube API
-const tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-document.body.appendChild(tag);
-
-// API Ready
-window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('player', {
-        height: '0',
-        width: '0',
-        videoId: 'nUv86H87_QY',
-        playerVars: {
-            autoplay: 0,
-            controls: 0,
-            loop: 1,
-            playlist: 'nUv86H87_QY',
-            start: 65,
-            modestbranding: 1,
-            rel: 0
-        },
-        events: {
-            onReady: function () {
-                playerReady = true;
-                console.log("Player Ready");
-            }
-        }
-    });
-};
-
 function mulaiWeb() {
     document.getElementById('overlay').style.display = 'none';
-
-    if (playerReady && player) {
-        player.unMute();
-        player.setVolume(100);
-        player.playVideo();
-    } else {
-        setTimeout(() => {
-            if (player) {
-                player.playVideo();
-            }
-        }, 1000);
-    }
+    
+    const music = document.getElementById('bg-music');
+    music.volume = 1.0;
+    music.play().catch(error => {
+        console.log("Autoplay diblokir:", error);
+    });
 }
 </script>
 
