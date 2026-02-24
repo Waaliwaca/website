@@ -9,7 +9,6 @@
 
 <style>
 :root {
-    --pink-soft: #ffc0cb;
     --pink-dark: #d63384;
     --bg-color: #fff5f8;
     --vintage-brown: #a36b77;
@@ -59,7 +58,7 @@ header {
 h1 {
     color: var(--pink-dark);
     font-size: 2.2rem;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     text-align: center;
 }
 
@@ -122,7 +121,7 @@ h1 {
     </h1>
 
     <div class="music-card animate__animated animate__zoomIn">
-        <img src="dina.jpg" alt="Dina">
+        <img src="./dina.jpg" alt="Dina">
         <div class="music-info">
             <h4>Bersama Selamanya</h4>
             <p>Nadhif Basalamah</p>
@@ -136,20 +135,37 @@ h1 {
     </div>
 </header>
 
-<!-- AUDIO MP3 -->
-<audio id="bg-music" loop>
-    <source src="bersama-selamanya.mp3" type="audio/mpeg">
+<!-- AUDIO -->
+<audio id="bg-music" loop preload="auto">
+    <source src="./bersama-selamanya.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 function mulaiWeb() {
-    document.getElementById('overlay').style.display = 'none';
-    
+    const overlay = document.getElementById('overlay');
     const music = document.getElementById('bg-music');
-    music.volume = 1.0;
-    music.play().catch(error => {
-        console.log("Autoplay diblokir:", error);
-    });
+
+    overlay.style.display = "none";
+
+    // Pastikan file siap
+    music.load();
+    music.currentTime = 0;
+    music.volume = 1;
+
+    setTimeout(() => {
+        const playPromise = music.play();
+
+        if (playPromise !== undefined) {
+            playPromise
+                .then(() => {
+                    console.log("Music playing successfully");
+                })
+                .catch(error => {
+                    console.log("Autoplay blocked:", error);
+                    alert("Klik sekali lagi ya 💖");
+                });
+        }
+    }, 300);
 }
 </script>
 
