@@ -13,13 +13,35 @@
             --vintage-brown: #a36b77;
         }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        body, html {
+            height: 100%;
             margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
-            color: #444;
+            overflow: hidden;
+        }
+
+        /* Overlay untuk memicu lagu agar tidak terkena blokir browser */
+        #overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 245, 248, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            cursor: pointer;
             text-align: center;
-            overflow-x: hidden;
+        }
+
+        .play-btn {
+            background: var(--pink-dark);
+            color: white;
+            padding: 18px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(214, 51, 132, 0.4);
         }
 
         header {
@@ -29,30 +51,24 @@
             justify-content: center;
             align-items: center;
             background: linear-gradient(rgba(255,192,203,0.3), rgba(255,255,255,0.8));
+            padding: 20px;
         }
 
         h1 {
             color: var(--pink-dark);
-            font-size: 2.5rem;
-            margin-bottom: 0;
+            font-size: 2.2rem;
             text-shadow: 2px 2px white;
+            margin-bottom: 10px;
         }
 
-        /* Music Card Style */
         .music-card {
             background: var(--vintage-brown);
             padding: 20px;
             border-radius: 20px;
-            display: inline-block;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            margin-top: 30px;
             color: white;
             width: 280px;
-            transition: transform 0.3s;
-        }
-
-        .music-card:hover {
-            transform: scale(1.02);
+            margin-bottom: 25px;
         }
 
         .music-card img {
@@ -60,66 +76,67 @@
             height: 280px;
             object-fit: cover;
             border-radius: 15px;
-            margin-bottom: 15px;
         }
 
-        .music-info h4 { margin: 5px 0; font-size: 1.3rem; letter-spacing: 1px; }
-        .music-info p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
-
-        .controls {
-            margin-top: 15px;
-            font-size: 1.5rem;
-            letter-spacing: 10px;
-        }
-
-        /* Video Hidden */
-        .video-container { display: none; }
+        .music-info h4 { margin: 15px 0 5px; font-size: 1.2rem; }
+        .music-info p { margin: 0; font-size: 0.9rem; opacity: 0.8; }
 
         .footer-note {
-            margin-top: 20px;
-            font-style: italic;
             color: var(--pink-dark);
-            font-weight: bold;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 400px;
+            font-weight: 500;
         }
+
+        .emoji { font-size: 1.5rem; display: block; margin-top: 10px; }
     </style>
 </head>
 <body>
 
+    <div id="overlay" onclick="startSurprise()">
+        <div class="play-btn animate__animated animate__pulse animate__infinite">
+            Klik untuk Kejutan Dina ✨
+        </div>
+    </div>
+
     <header>
         <h1 class="animate__animated animate__fadeInDown">Happy 17th Birthday, Dina! ✨</h1>
         
-        <div class="music-card animate__animated animate__fadeInUp">
+        <div class="music-card animate__animated animate__zoomIn">
             <img src="dina.jpg" alt="Dina">
             <div class="music-info">
                 <h4>Bersama Selamanya</h4>
                 <p>Nadhif Basalamah</p>
             </div>
-            <div class="controls">
-                <span>⏮ ⏸ ⏭</span>
+            <div style="margin-top:15px; font-size:1.5rem; letter-spacing:10px; opacity: 0.8;">
+                ⏮ ⏸ ⏭
             </div>
         </div>
 
-        <p class="footer-note animate__animated animate__fadeIn animate__delay-1s">
-            "Satu hal yang pasti, kita bersama selamanya..."
-        </p>
+        <div class="footer-note animate__animated animate__fadeInUp animate__delay-1s">
+            Dinaa happy birthday yaa 😁 <br>
+            Semoga di lancarin segala urusannya semuaaa sehat sehat selalu ceriaa 
+            <span class="emoji">😽</span>
+        </div>
 
-        <div class="video-container">
+        <div style="display:none;">
             <iframe id="player" width="0" height="0" 
-                src="https://www.youtube.com/embed/nUv86H87_QY?autoplay=1&loop=1&playlist=nUv86H87_QY" 
+                src="https://www.youtube.com/embed/nUv86H87_QY?enablejsapi=1&loop=1&playlist=nUv86H87_QY" 
                 frameborder="0" allow="autoplay">
             </iframe>
         </div>
     </header>
 
     <script>
-        // Memastikan lagu berbunyi setelah interaksi user (klik di mana saja)
-        window.addEventListener('click', function() {
+        function startSurprise() {
+            // Sembunyikan tombol
+            document.getElementById('overlay').style.display = 'none';
+            
+            // Putar lagu dengan menambahkan autoplay ke src
             var player = document.getElementById('player');
-            var currentSrc = player.src;
-            if(!currentSrc.includes("autoplay=1")) {
-                player.src += "&autoplay=1";
-            }
-        }, { once: true });
+            player.src += "&autoplay=1";
+        }
     </script>
 
 </body>
